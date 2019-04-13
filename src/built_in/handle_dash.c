@@ -1,0 +1,31 @@
+/*
+** EPITECH PROJECT, 2019
+** minishell2
+** File description:
+** abc
+*/
+
+#include "my.h"
+
+char *get_env_value(char **env, int index)
+{
+    char *res = my_calloc(sizeof(char) * my_strlen(env[index]));
+    int count = 7;
+
+    if (res == NULL)
+        return NULL;
+    for (int i = 0; count != my_strlen(env[index]); i++, count++)
+        res[i] = env[index][count];
+    return res;
+}
+
+char *find_old_pwd(shell_t *shell)
+{
+    char *res = NULL;
+
+    for (int i = 0; shell->env_dup[i] != NULL; i++) {
+        if (!my_strcmp(get_name(shell->env_dup[i]), "OLDPWD"))
+            res = get_env_value(shell->env_dup, i);
+    }
+    return res;
+}
